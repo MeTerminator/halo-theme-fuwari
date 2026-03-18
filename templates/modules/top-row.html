@@ -15,24 +15,64 @@
           </div>
         </a>
         <div
-          class="hidden md:flex"
+          class="hidden items-center md:flex"
           th:with="menu = ${not #strings.isEmpty(theme.config.base.menu) ? menuFinder.getByName(theme.config.base.menu) : menuFinder.getPrimary()}"
         >
           <th:block th:if="${menu != null} and ${not #lists.isEmpty(menu.menuItems)}">
-            <a
-              th:each="menuItem : ${menu.menuItems}"
-              th:href="@{${menuItem.status.href}}"
-              th:target="${menuItem.spec.target?.value}"
-              class="btn-plain scale-animation h-11 rounded-lg px-5 font-bold active:scale-95"
-            >
-              <div class="flex items-center">
+            <div th:each="menuItem : ${menu.menuItems}" class="group relative">
+              <a
+                th:href="@{${menuItem.status.href}}"
+                th:target="${menuItem.spec.target?.value}"
+                class="btn-plain scale-animation flex h-11 items-center rounded-lg px-5 font-bold active:scale-95"
+              >
                 [[${menuItem.status.displayName}]]
                 <span
-                  th:if="${menuItem.spec.target?.value == '_blank'}"
-                  class="icon-[tabler--external-link] ml-1 -translate-y-[1px] text-[1.3rem] text-black/[0.2] transition dark:text-white/[0.2]"
+                  th:if="${not #lists.isEmpty(menuItem.children)}"
+                  class="icon-[tabler--chevron-down] ml-1 text-[1rem] opacity-50"
                 ></span>
+              </a>
+
+              <div
+                th:if="${not #lists.isEmpty(menuItem.children)}"
+                class="pointer-events-none absolute left-0 top-full z-50 translate-y-2 pt-2 opacity-0 transition-all before:absolute before:top-0 before:h-5 before:w-full group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100"
+              >
+                <div
+                  class="card-base mt-3 min-w-[160px] !overflow-visible border border-black/5 p-2 shadow-xl dark:border-white/5"
+                >
+                  <div th:each="child : ${menuItem.children}" class="group/sub relative">
+                    <a
+                      th:href="@{${child.status.href}}"
+                      th:target="${child.spec.target?.value}"
+                      class="flex items-center justify-between rounded-md px-4 py-2 text-sm font-medium transition hover:bg-[var(--btn-plain-bg-hover)] hover:text-[var(--primary)]"
+                    >
+                      <span class="truncate">[[${child.status.displayName}]]</span>
+                      <span
+                        th:if="${not #lists.isEmpty(child.children)}"
+                        class="icon-[tabler--chevron-right] ml-2 text-[1rem] opacity-50"
+                      ></span>
+                    </a>
+
+                    <div
+                      th:if="${not #lists.isEmpty(child.children)}"
+                      class="pointer-events-none absolute -top-2 left-full ml-3 -translate-x-2 opacity-0 transition-all before:absolute before:-left-3 before:top-0 before:h-full before:w-4 group-hover/sub:pointer-events-auto group-hover/sub:translate-x-0 group-hover/sub:opacity-100"
+                    >
+                      <div
+                        class="card-base min-w-[160px] whitespace-nowrap border border-black/5 p-2 shadow-xl dark:border-white/5"
+                      >
+                        <a
+                          th:each="grandChild : ${child.children}"
+                          th:href="@{${grandChild.status.href}}"
+                          th:target="${grandChild.spec.target?.value}"
+                          class="block rounded-md px-4 py-2 text-sm font-medium transition hover:bg-[var(--btn-plain-bg-hover)] hover:text-[var(--primary)]"
+                        >
+                          [[${grandChild.status.displayName}]]
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </a>
+            </div>
           </th:block>
         </div>
         <div class="flex">
