@@ -122,6 +122,11 @@ spec:
           label: 菜单
           value: ""
           help: "选择菜单"
+        - $formkit: menuRadio
+          name: footer_menu
+          label: 底部菜单
+          value: ""
+          help: "专门用于页脚显示的菜单"
     - group: style
       label: 样式
       formSchema:
