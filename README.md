@@ -1,7 +1,5 @@
 
-<h1 align="center"> Halo Theme Fuwari  </h1>
-
----
+# Halo Theme Fuwari
 
 <div align="center">  
 
@@ -22,7 +20,7 @@
   </a>  </a>
 </p>
 
-### 预览：[Blog](https://blog.met6.top:444/)
+### 预览：[MeT-Blog](https://blog.met6.top:444/)
 
 
 ### 安裝
