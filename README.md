@@ -1,10 +1,12 @@
-
-# Halo Theme Fuwari
+<h1 align="center"> Halo Theme Fuwari  </h1>
 
 <div align="center">  
 
 一款 [Halo2.0](https://github.com/halo-dev/halo) 的博客主题  
+
 移植于 Astro  [fuwari](https://github.com/saicaca/fuwari)同名主题
+
+本仓库为魔改版本，原仓库 [fuwari](https://github.com/jiewenhuang/halo-theme-fuwari)
 
 </div>
 
